@@ -1,11 +1,23 @@
 let noClickCount = 0;
 
-// Disable "Yes" button at the start
+// Disable buttons at the start
 document.getElementById("yesBtn").disabled = true;
+document.getElementById("noBtn").disabled = true;
+
+// Show slide first, then reveal the question & buttons
+document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(() => {
+        document.getElementById("slideContainer").style.display = "none";
+        document.getElementById("mainContainer").style.display = "flex";
+        document.getElementById("noBtn").disabled = false; // Enable No button
+    }, 3000); // Wait for 3 seconds before showing main content
+});
 
 // Move "Yes" button away from the cursor (but keep inside screen)
 function moveYesButton(event) {
     const yesBtn = document.getElementById("yesBtn");
+    if (yesBtn.disabled) return; // Stop moving if the button is disabled
+
     const cursorX = event.clientX;
     const cursorY = event.clientY;
     const yesBtnRect = yesBtn.getBoundingClientRect();
