@@ -54,6 +54,17 @@ button {
     position: relative;
 }
 
+#keynoteVideo {
+    display: none; /* Hide video initially */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover; /* Ensures the video fills the screen */
+    z-index: 100; /* Keeps it on top */
+}
+
 #yesBtn {
     background-color: #ff4d4d;
     color: white;
@@ -138,25 +149,19 @@ button {
     color: #d949b7;
 }
 
-.slide-container {
-    position: fixed;
+#slideContainer {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
-    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    height: 100%;
+    background-color: #ff0066;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
+    font-size: 3rem;
     color: white;
-    font-size: 28px;
     font-weight: bold;
-    z-index: 1000;
-    animation: fadeOut 3s ease-in-out forwards;
-}
-
-@keyframes fadeOut {
-    0% { opacity: 1; }
-    100% { opacity: 0; visibility: hidden; }
+    z-index: 10;
+    transition: opacity 1s ease-in-out; /* Smooth fade-out */
 }

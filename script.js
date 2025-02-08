@@ -1,22 +1,48 @@
 let noClickCount = 0;
-
-// Disable buttons at the start
 document.getElementById("yesBtn").disabled = true;
 document.getElementById("noBtn").disabled = true;
 
-// Show slide first, then reveal the question & buttons
 document.addEventListener("DOMContentLoaded", function () {
+    const introMusic = document.getElementById("introMusic");
+    const keynoteVideo = document.getElementById("keynoteVideo");
+
+    // Function to play "Get Ready!" MP3 on first click (fixes autoplay issue)
+    function startMusic() {
+        introMusic.play().catch(error => console.log("Autoplay blocked:", error));
+        document.removeEventListener("click", startMusic);
+    }
+
+    document.addEventListener("click", startMusic);
+
+    // Show "Get Ready!" screen with MP3 for 5 seconds
     setTimeout(() => {
-        document.getElementById("slideContainer").style.display = "none";
-        document.getElementById("mainContainer").style.display = "flex";
-        document.getElementById("noBtn").disabled = false; // Enable No button
-    }, 3000); // Wait for 3 seconds before showing main content
+        document.getElementById("slideContainer").style.opacity = "0"; // Start fade-out
+
+        setTimeout(() => {
+            document.getElementById("slideContainer").style.display = "none"; // Hide "Get Ready!"
+
+            // Stop the MP3 audio
+            introMusic.pause();
+            introMusic.currentTime = 0;
+
+            // Show and play MP4 video
+            keynoteVideo.style.display = "block";
+
+            // When the MP4 video ends, hide it and show Yes/No buttons
+            keynoteVideo.addEventListener("ended", function () {
+                keynoteVideo.style.display = "none"; // Hide video
+                document.getElementById("mainContainer").style.display = "flex"; // Show Yes/No buttons
+                document.getElementById("noBtn").disabled = false;
+            });
+
+        }, 1000); // Wait for fade effect
+
+    }, 5000); // "Get Ready!" stays for 5 seconds
 });
 
-// Move "Yes" button away from the cursor (but keep inside screen)
 function moveYesButton(event) {
     const yesBtn = document.getElementById("yesBtn");
-    if (yesBtn.disabled) return; // Stop moving if the button is disabled
+    if (yesBtn.disabled) return;
 
     const cursorX = event.clientX;
     const cursorY = event.clientY;
@@ -40,15 +66,14 @@ function moveYesButton(event) {
     }
 }
 
-// No Button Clicked
 function noClicked() {
     noClickCount++;
 
     if (noClickCount === 1) {
-        document.querySelector("h2").style.opacity = "0"; // Fade out
+        document.querySelector("h2").style.opacity = "0"; 
         setTimeout(() => {
-            document.querySelector("h2").style.display = "none"; // Remove it
-        }, 500); // Wait for fade effect
+            document.querySelector("h2").style.display = "none"; 
+        }, 500); 
     }
     
     const messages = [
@@ -75,34 +100,31 @@ function noClicked() {
     }
 
     if (noClickCount === 9) {
-        document.getElementById("yesBtn").disabled = false; // Enable Yes button on last attempt
+        document.getElementById("yesBtn").disabled = false; 
     }
 
     if (noClickCount === 10) {
         document.getElementById("noBtn").remove();
         const yesBtn = document.getElementById("yesBtn");
-        yesBtn.style.position = "static"; // Put it back to normal
+        yesBtn.style.position = "static"; 
     }
 
     document.getElementById("sadViolin").play();
 }
 
-// Yes Button Clicked
 function yesClicked() {
     if (noClickCount < 9) {
-        return; // Do nothing if "No" hasn't been pressed 9 times
+        return; 
     }
     
     document.querySelector(".container").innerHTML = "<h1>Yay! I knew you'd say YES! ❤️🥰</h1>";
     confettiExplosion();
     document.getElementById("loveMoment").play();
     
-    // Stop moving the "Yes" button
     document.removeEventListener("mousemove", moveYesButton);
-    document.getElementById("yesBtn").style.position = "static"; // Reset position
+    document.getElementById("yesBtn").style.position = "static";
 }
 
-// Confetti Effect
 function confettiExplosion() {
     const confettiContainer = document.getElementById("confettiContainer");
     for (let i = 0; i < 100; i++) {
@@ -115,7 +137,6 @@ function confettiExplosion() {
     }
 }
 
-// Create Flower and Emoji Rain
 function createFlower() {
     const emojis = ["🌹", "😘", "🍇", "🍫", "❤️‍🔥"];
     emojis.forEach((emoji) => {
@@ -131,7 +152,6 @@ function createFlower() {
 
 setInterval(createFlower, 300);
 
-// Heart Cursor Trail Effect
 document.addEventListener("mousemove", (e) => {
     const trail = document.createElement("div");
     trail.classList.add("cursor-trail");
@@ -139,10 +159,10 @@ document.addEventListener("mousemove", (e) => {
     trail.style.position = "absolute";
     trail.style.left = `${e.pageX}px`;
     trail.style.top = `${e.pageY}px`;
-    trail.style.fontSize = `${Math.random() * 15 + 15}px`; // Randomize size
+    trail.style.fontSize = `${Math.random() * 15 + 15}px`; 
     document.body.appendChild(trail);
 
     setTimeout(() => {
         trail.remove();
-    }, 1000); // Allow hearts to be visible for 1 second before fading
+    }, 1000); 
 });

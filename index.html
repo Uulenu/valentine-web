@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Be My Valentine?</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Style for the slide effect container */
+<style>
+
         #slideContainer {
             position: absolute;
             top: 0;
@@ -25,11 +25,9 @@
         }
 
         .container {
-            display: none; /* Hide the question and buttons initially */
+            display: none;
             text-align: center;
         }
-
-        /* Customize for confetti, flowers, and trail effects as usual */
         #confettiContainer, #flowerContainer, #cursorTrail {
             position: absolute;
             top: 0;
@@ -54,7 +52,7 @@
     </style>
 </head>
 <body>
-    <!-- Slide Effect Container -->
+ 
     <div id="slideContainer">
         <span>Get Ready! 💖</span>
     </div>
@@ -75,7 +73,12 @@
 
     <audio id="sadViolin" src="sad-violin.mp3"></audio>
     <audio id="loveMoment" src="love-moment.mp3"></audio>
+    <audio id="introMusic" src="intro-music.mp3"></audio>
 
+<video id="keynoteVideo" autoplay playsinline>
+    <source src="rizzus.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
     <script src="script.js"></script>
 
 </body>
