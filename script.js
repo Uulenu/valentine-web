@@ -5,39 +5,34 @@ document.getElementById("noBtn").disabled = true;
 document.addEventListener("DOMContentLoaded", function () {
     const introMusic = document.getElementById("introMusic");
     const keynoteVideo = document.getElementById("keynoteVideo");
-
-    // Function to play "Get Ready!" MP3 on first click (fixes autoplay issue)
     function startMusic() {
         introMusic.play().catch(error => console.log("Autoplay blocked:", error));
         document.removeEventListener("click", startMusic);
     }
 
     document.addEventListener("click", startMusic);
-
-    // Show "Get Ready!" screen with MP3 for 5 seconds
+    // Play the "Get Ready" screen for 5 seconds
     setTimeout(() => {
-        document.getElementById("slideContainer").style.opacity = "0"; // Start fade-out
+        document.getElementById("slideContainer").style.opacity = "0";
 
         setTimeout(() => {
-            document.getElementById("slideContainer").style.display = "none"; // Hide "Get Ready!"
-
-            // Stop the MP3 audio
+            document.getElementById("slideContainer").style.display = "none";
             introMusic.pause();
             introMusic.currentTime = 0;
 
-            // Show and play MP4 video
+            // Show the video and enable controls
             keynoteVideo.style.display = "block";
+            keynoteVideo.play();
 
-            // When the MP4 video ends, hide it and show Yes/No buttons
+            // When the video ends, show the main content
             keynoteVideo.addEventListener("ended", function () {
-                keynoteVideo.style.display = "none"; // Hide video
-                document.getElementById("mainContainer").style.display = "flex"; // Show Yes/No buttons
+                keynoteVideo.style.display = "none";
+                document.getElementById("mainContainer").style.display = "flex";
                 document.getElementById("noBtn").disabled = false;
             });
 
-        }, 1000); // Wait for fade effect
-
-    }, 5000); // "Get Ready!" stays for 5 seconds
+        }, 10); // Fade out duration
+    }, 6500); // "Get Ready" screen duration
 });
 
 function moveYesButton(event) {
@@ -70,12 +65,12 @@ function noClicked() {
     noClickCount++;
 
     if (noClickCount === 1) {
-        document.querySelector("h2").style.opacity = "0"; 
+        document.querySelector("h2").style.opacity = "0";
         setTimeout(() => {
-            document.querySelector("h2").style.display = "none"; 
-        }, 500); 
+            document.querySelector("h2").style.display = "none";
+        }, 500);
     }
-    
+
     const messages = [
         "Are you serious? 😳",
         "Think again! 😡",
@@ -88,7 +83,7 @@ function noClicked() {
         "You're breaking my heart 💔🥹",
         "No more 'No' for you! 😈"
     ];
-    
+
     document.getElementById("question").innerText = messages[Math.min(noClickCount - 1, messages.length - 1)];
 
     if (noClickCount <= 5) {
@@ -100,13 +95,13 @@ function noClicked() {
     }
 
     if (noClickCount === 9) {
-        document.getElementById("yesBtn").disabled = false; 
+        document.getElementById("yesBtn").disabled = false;
     }
 
     if (noClickCount === 10) {
         document.getElementById("noBtn").remove();
         const yesBtn = document.getElementById("yesBtn");
-        yesBtn.style.position = "static"; 
+        yesBtn.style.position = "static";
     }
 
     document.getElementById("sadViolin").play();
@@ -114,13 +109,13 @@ function noClicked() {
 
 function yesClicked() {
     if (noClickCount < 9) {
-        return; 
+        return;
     }
-    
+
     document.querySelector(".container").innerHTML = "<h1>Yay! I knew you'd say YES! ❤️🥰</h1>";
     confettiExplosion();
     document.getElementById("loveMoment").play();
-    
+
     document.removeEventListener("mousemove", moveYesButton);
     document.getElementById("yesBtn").style.position = "static";
 }
@@ -159,10 +154,10 @@ document.addEventListener("mousemove", (e) => {
     trail.style.position = "absolute";
     trail.style.left = `${e.pageX}px`;
     trail.style.top = `${e.pageY}px`;
-    trail.style.fontSize = `${Math.random() * 15 + 15}px`; 
+    trail.style.fontSize = `${Math.random() * 15 + 15}px`;
     document.body.appendChild(trail);
 
     setTimeout(() => {
         trail.remove();
-    }, 1000); 
+    }, 1000);
 });

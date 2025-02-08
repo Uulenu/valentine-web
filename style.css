@@ -24,6 +24,7 @@ h1 {
     color: #fff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
+
 h2 {
     font-size: 22px;
     margin-bottom: 15px;
@@ -55,14 +56,14 @@ button {
 }
 
 #keynoteVideo {
-    display: none; /* Hide video initially */
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    object-fit: cover; /* Ensures the video fills the screen */
-    z-index: 100; /* Keeps it on top */
+    object-fit: cover;
+    z-index: 100;
 }
 
 #yesBtn {
@@ -127,10 +128,11 @@ button {
     0% { opacity: 1; transform: scale(1); }
     100% { opacity: 0; transform: scale(1.5); }
 }
+
 .footer {
     text-align: center;
     padding: 15px 10px;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4); /* Corrected */
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
     color: #fff;
     font-size: 18px;
     font-weight: bold;
@@ -163,5 +165,5 @@ button {
     color: white;
     font-weight: bold;
     z-index: 10;
-    transition: opacity 1s ease-in-out; /* Smooth fade-out */
+    transition: opacity 1s ease-in-out;
 }
